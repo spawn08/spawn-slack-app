@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import firebase from "../../firebase";
 import md5 from "md5";
 
+
 class Register extends React.Component {
   state = {
     username: "",
@@ -107,7 +108,7 @@ class Register extends React.Component {
   saveUser = createdUser =>{
     return this.state.usersRef.child(createdUser.user.uid).set({
       name: createdUser.user.displayName,
-      avatar: createdUser.user.photoURL 
+      avatar: createdUser.user.photoURL
     })
   }
 
