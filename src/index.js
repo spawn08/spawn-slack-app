@@ -1,25 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from "./registerServiceWorker";
+import firebase from "./firebase";
+import "semantic-ui-css/semantic.min.css";
 
-import 'semantic-ui-css/semantic.min.css'
+import {BrowserRouter as Router, Switch, Route, withRouter} from "react-router-dom";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
+class Root extends React.Component {
 
-const Root = () => (
-    <Router>
-        <Switch>
-            <Route exact path = "/" component={App}/>
-            <Route path = "/login" component={Login}/>
-            <Route path= "/register" component={Register} />
-        </Switch>
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.props.history.push('/');
+            }
+        })
+    }
 
-    </Router>
-);
+    render() {
+        return (
+            <Switch>
+                <Route exact path="/" component={App}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
+            </Switch>
+        );
+    }
+}
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+const RootWithAuth = withRouter(Root);
+
+ReactDOM.render(<Router><RootWithAuth /></Router>, document.getElementById("root"));
 registerServiceWorker();

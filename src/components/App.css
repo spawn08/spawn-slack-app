@@ -6,3 +6,7 @@ body,
     background: #eee;
     padding: 1em;
 }
+
+.logo {
+    margin-bottom: -25px;
+}
