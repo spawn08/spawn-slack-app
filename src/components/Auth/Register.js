@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import firebase from "../../firebase";
 import md5 from "md5";
+import ic_launcher from "../../images/ic_launcher.png";
 
 
 class Register extends React.Component {
@@ -131,7 +132,7 @@ class Register extends React.Component {
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
           <Image
-            src="https://tinyurl.com/utcshph"
+            src={ic_launcher}
             className="logo"
             centered
             size="tiny"

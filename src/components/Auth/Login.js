@@ -11,6 +11,7 @@ import {
 
 import { Link } from "react-router-dom";
 import firebase from "../../firebase";
+import ic_launcher from "../../images/ic_launcher.png";
 
 class Login extends React.Component {
   state = {
@@ -62,7 +63,7 @@ class Login extends React.Component {
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
           <Image
-            src="https://tinyurl.com/utcshph"
+            src={ic_launcher}
             className="logo"
             centered
             size="tiny"
