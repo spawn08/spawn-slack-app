@@ -37,7 +37,7 @@ class Login extends React.Component {
         .signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(signedInUser => {
           console.log(signedInUser);
-          this.setState({loading:false})
+          this.setState({ loading: false });
         })
         .catch(err => {
           console.error(err);
@@ -61,19 +61,14 @@ class Login extends React.Component {
     const { email, password, errors, loading } = this.state;
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <Image
-            src={ic_launcher}
-            className="logo"
-            centered
-            size="tiny"
-          />
+        <Grid.Column className="login">
+          <Image src={ic_launcher} className="logo" centered size="tiny" />
           <Header as="h2" icon color="violet" textAlign="center">
             Login to SpawN Slack App
           </Header>
 
           <Form onSubmit={this.handleSubmit} size="large">
-            <Segment stacked>
+            <Segment>
               <Form.Input
                 fluid
                 name="email"
@@ -118,7 +113,7 @@ class Login extends React.Component {
           )}
 
           <Message>
-            Don't have an account? <Link to="/register"> Register</Link>
+            Don't have an account? <Link className="link" to="/register"> Register</Link>
           </Message>
         </Grid.Column>
       </Grid>

@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 import {
   Grid,
   Form,
@@ -14,7 +15,6 @@ import firebase from "../../firebase";
 import md5 from "md5";
 import ic_launcher from "../../images/ic_launcher.png";
 
-
 class Register extends React.Component {
   state = {
     username: "",
@@ -23,7 +23,7 @@ class Register extends React.Component {
     passwordConfirmation: "",
     errors: [],
     loading: false,
-    usersRef: firebase.database().ref('users')
+    usersRef: firebase.database().ref("users")
   };
 
   handleChange = event => {
@@ -86,14 +86,17 @@ class Register extends React.Component {
               )}?d=identicon`
             })
             .then(() => {
-              this.saveUser(createdUser).then(() =>{
-                console.log('user saved');
-              })
+              this.saveUser(createdUser).then(() => {
+                console.log("user saved");
+              });
             })
             .catch(err => {
               console.error(err);
-              this.setState({errors: this.state.errors.concat(err), loading: false});
-            })
+              this.setState({
+                errors: this.state.errors.concat(err),
+                loading: false
+              });
+            });
           //this.setState({ loading: false });
         })
         .catch(err => {
@@ -106,12 +109,12 @@ class Register extends React.Component {
     }
   };
 
-  saveUser = createdUser =>{
+  saveUser = createdUser => {
     return this.state.usersRef.child(createdUser.user.uid).set({
       name: createdUser.user.displayName,
       avatar: createdUser.user.photoURL
-    })
-  }
+    });
+  };
 
   handleInputError = (errors, inputName) => {
     return errors.some(error => error.message.toLowerCase().includes(inputName))
@@ -130,19 +133,14 @@ class Register extends React.Component {
     } = this.state;
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <Image
-            src={ic_launcher}
-            className="logo"
-            centered
-            size="tiny"
-          />
+        <Grid.Column className="register">
+          <Image src={ic_launcher} className="logo" centered size="tiny" />
           <Header as="h2" icon color="violet" textAlign="center">
             Register for SpawN Slack App
           </Header>
 
           <Form onSubmit={this.handleSubmit} size="large">
-            <Segment stacked>
+            <Segment>
               <Form.Input
                 fluid
                 name="username"
@@ -210,7 +208,7 @@ class Register extends React.Component {
           )}
 
           <Message>
-            Already a user? <Link to="/login"> Login</Link>
+            Already a user? <Link className="link" to="/login"> Login</Link>
           </Message>
         </Grid.Column>
       </Grid>

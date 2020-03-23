@@ -1,6 +1,5 @@
 html,
 body,
-
 .app {
     height: 100vh;
     background: #eee;
@@ -9,4 +8,42 @@ body,
 
 .logo {
     margin-bottom: -25px;
+}
+
+.register {
+    max-width: 450px;
+    background: white;
+    border-radius: 15px;
+}
+
+.login {
+    max-width: 450px;
+    max-height: 400px;
+    background: white;
+    border-radius: 15px;
+}
+
+.link {
+    font-weight: 100;
+    font-style: normal;
+    font-size: 15px;
+}
+
+.messages {
+    height: 335px;
+    overflow-y: scroll;
+}
+
+.message_form {
+    position: fixed !important;
+    bottom: 0.5em;
+    margin-left: 320px !important;
+    left: 0;
+    right: 1em;
+    z-index: 200;
+}
+
+.message__self {
+    border-left: 2px solid orange;
+    padding-left: 8px;
 }
