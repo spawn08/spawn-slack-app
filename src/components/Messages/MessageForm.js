@@ -4,6 +4,7 @@ import firebase from "../../firebase";
 import FileModal from "./FileModal";
 import uuidv4 from "uuid/v4";
 import "../App.css";
+import ProgressBar from "./ProgressBar";
 
 export default class MessageForm extends Component {
   state = {
@@ -31,9 +32,9 @@ export default class MessageForm extends Component {
     const message = {
       timestamp: firebase.database.ServerValue.TIMESTAMP,
       user: {
-        id: this.state.user.uid,
-        name: this.state.user.displayName,
-        avatar: this.state.user.photoURL
+        id: this.state.currentUser.uid,
+        name: this.state.currentUser.displayName,
+        avatar: this.state.currentUser.photoURL
       }
     };
 
@@ -83,18 +84,20 @@ export default class MessageForm extends Component {
       },
       () => {
         this.state.uploadTask.on(
-          'state_changed',
+          "state_changed",
           snap => {
-            const percentUpload = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+            const percentUpload = Math.round(
+              (snap.bytesTransferred / snap.totalBytes) * 100
+            );
             this.setState({ percentUpload });
           },
           err => {
             console.log(err);
             this.setState({
               errors: this.state.errors.concat(err),
-              uploadState: 'error',
+              uploadState: "error",
               uploadTask: null
-            })
+            });
           },
           () => {
             this.state.uploadTask.snapshot.ref
@@ -122,7 +125,7 @@ export default class MessageForm extends Component {
       .push()
       .set(this.createMessage(downloadUrl))
       .then(() => {
-        this.setState({ uploadState: 'done ' });
+        this.setState({ uploadState: "done" });
       })
       .catch(err => {
         console.log(err);
@@ -131,7 +134,14 @@ export default class MessageForm extends Component {
   };
 
   render() {
-    const { errors, message, loading, modal } = this.state;
+    const {
+      errors,
+      message,
+      loading,
+      modal,
+      uploadState,
+      percentUpload
+    } = this.state;
     return (
       <Segment className="message_form">
         <Input
@@ -165,13 +175,16 @@ export default class MessageForm extends Component {
             content="Upload Media"
             labelPosition="right"
             icon="cloud upload"
-          />
-          <FileModal
-            modal={modal}
-            closeModal={this.closeModal}
-            uploadFile={this.uploadFile}
+            disabled={uploadState === "uploading"}
           />
         </ButtonGroup>
+        <FileModal
+          modal={modal}
+          closeModal={this.closeModal}
+          uploadFile={this.uploadFile}
+        />
+
+        <ProgressBar uploadState={uploadState} percentUpload={percentUpload} />
       </Segment>
     );
   }
