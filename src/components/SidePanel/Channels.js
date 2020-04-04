@@ -3,6 +3,7 @@ import firebase from "../../firebase";
 import { connect } from "react-redux";
 import { setCurrentChannel } from "../../actions";
 import { Menu, Icon, Modal, Form, Input, Button } from "semantic-ui-react";
+import "../App.css";
 
 class Channels extends Component {
   state = {
@@ -120,7 +121,7 @@ class Channels extends Component {
 
     return (
       <React.Fragment>
-        <Menu.Menu style={{ paddingBottom: "15em" }}>
+        <Menu.Menu className="menu">
           <Menu.Item>
             <span>
               <Icon name="exchange" /> CHANNELS
