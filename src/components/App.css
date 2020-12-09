@@ -30,12 +30,12 @@ body,
 }
 
 .messages {
-    height: 335px;
+    height: 385px;
     overflow-y: scroll;
 }
 
 .messages__progress {
-    height: 305px;
+    height: 365px;
     overflow-y: scroll;
 }
 

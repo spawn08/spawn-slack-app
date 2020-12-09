@@ -89,6 +89,7 @@ export default class MessageForm extends Component {
             const percentUpload = Math.round(
               (snap.bytesTransferred / snap.totalBytes) * 100
             );
+            this.props.isProgressBarVisible(percentUpload);
             this.setState({ percentUpload });
           },
           err => {

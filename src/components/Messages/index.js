@@ -16,7 +16,8 @@ class Messages extends Component {
     numUniqueUsers: "",
     searchTerm: "",
     searchLoading: false,
-    searchResults: []
+    searchResults: [],
+    progressBar: false
   };
 
   componentDidMount() {
@@ -87,6 +88,12 @@ class Messages extends Component {
 
   displayChannelName = channel => (channel ? `#${channel.name}` : "");
 
+  isProgressBarVisible = percent => {
+    if(percent > 0){
+      this.setState({progressBar: true})
+    }
+  }
+
   render() {
     const {
       messagesRef,
@@ -95,7 +102,8 @@ class Messages extends Component {
       user,
       numUniqueUsers,
       searchTerm,
-      searchResults
+      searchResults,
+      progressBar
     } = this.state;
     return (
       <React.Fragment>
@@ -105,7 +113,7 @@ class Messages extends Component {
           handleSearchChange={this.handleSearchChange}
         />
         <Segment>
-          <Comment.Group className="messages">
+          <Comment.Group className={progressBar ? "messages__progress" : "messages"}>
             {searchTerm
               ? this.displayMessages(searchResults)
               : this.displayMessages(messages)}
@@ -115,6 +123,7 @@ class Messages extends Component {
           messagesRef={messagesRef}
           currentChannel={channel}
           currentUser={user}
+          isProgressBarVisible={this.isProgressBarVisible}
         />
       </React.Fragment>
     );
